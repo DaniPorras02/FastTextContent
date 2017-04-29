@@ -6,23 +6,22 @@ import java.util.Observer;
 
 public class ContentGetter extends Observable implements Runnable {
     
-    private String resultado;
+    private String resultadoHTML;
     private String palabra;
 
     public ContentGetter(String palabraBuscada, Observer observer){
-        this.resultado = "<html> Sin contenido. </html>";
+        this.resultadoHTML = "<html> Sin contenido. </html>";
         this.palabra = palabraBuscada;
         addObserver(observer);
+    }
+    
+    public ContentGetter(String palabra, String html){
+        this.palabra = palabra; this.resultadoHTML = html;
     }
     
     @Override
     public void notifyObservers(Object arg) {
         super.notifyObservers(arg); 
-    }
-
-    @Override
-    public synchronized void deleteObserver(Observer o) {
-        super.deleteObserver(o); 
     }
 
     @Override
@@ -36,13 +35,21 @@ public class ContentGetter extends Observable implements Runnable {
         HTTPManager managerHTML = new HTTPManager();
         
         try {
-            resultado = managerHTML.getSearchResult(palabra);
+            resultadoHTML = managerHTML.getSearchResult(palabra);
             
         } catch (Exception ex) {            
-            resultado = "<html> Ocurrió un error en la carga del contenido. </html>";
+            resultadoHTML = "<html> Ocurrió un error en la carga del contenido. </html>";
         }
         setChanged();
-        notifyObservers(resultado);
+        notifyObservers(this);
+    }
+
+    public String getResultadoHTML() {
+        return resultadoHTML;
+    }
+
+    public String getPalabra() {
+        return palabra;
     }
     
 }
