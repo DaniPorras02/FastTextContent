@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,12 +27,10 @@ public class MainUI implements Observer {
         resultadosBusqueda.add(resultado);
         
         CacheSingleton cache = CacheSingleton.getInstance();
-        cache.toString();
-        
-        System.out.println(resultado.getPalabra());        
+        cache.toString();      
         
         if(listaPalabrasBusqueda.size() == resultadosBusqueda.size()){
-            // codigo de terminacion
+            desplegarResultados();
         }
     }
     
@@ -58,17 +58,11 @@ public class MainUI implements Observer {
         
         // Termina la conversion
         
-        // Se ejecuta el proceso de obtener el html
-        
+        // Se ejecuta el proceso de obtener el html        
         listaPalabrasBusqueda.forEach( (palabra) -> iniciarProcesoBusqueda(palabra) );
         
 
         /*
-        JPanel container = new JPanel();
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-        JScrollPane sp = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
-        container.add(sp);
         
         Browser browser = new Browser();
         BrowserView view = new BrowserView(browser);
@@ -124,9 +118,49 @@ public class MainUI implements Observer {
         
     }
     
+    private void desplegarResultados(){
+        
+        // Configuraciones de la ventana de resultados
+        JFrame frameResultados = new JFrame();
+        frameResultados.setLayout(new BorderLayout());
+        frameResultados.setSize(700, 700);    
+        frameResultados.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frameResultados.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frameResultados.setLocationRelativeTo(null);
+        
+        JPanel contenedorExterno = new JPanel();
+        contenedorExterno.setLayout(new BoxLayout(contenedorExterno, BoxLayout.Y_AXIS));
+        
+        JScrollPane scroll = new JScrollPane(contenedorExterno);
+        frameResultados.add(scroll, BorderLayout.CENTER);
+        
+        // Ciclo de insercion de resultados
+        for (ContentGetter resultado : resultadosBusqueda){
+            // Agregar el label de la palabra
+            JPanel panelPalabra = new JPanel(new BorderLayout());
+            panelPalabra.add(new JLabel("Palabra buscada: " + resultado.getPalabra()), BorderLayout.NORTH);
+            // Agregar el label con el tiempo
+            JPanel panelTiempo = new JPanel(new BorderLayout());
+            panelTiempo.add(new JLabel("Tiempo de obtención: " + resultado.getTiempoBusqueda()), BorderLayout.NORTH);
+            // Cargar el resultado html
+            JPanel panelHTML = new JPanel(new BorderLayout());
+            Browser browser = new Browser();
+            BrowserView htmlViewer = new BrowserView(browser);
+            panelHTML.add(htmlViewer, BorderLayout.CENTER);
+            browser.loadHTML(resultado.getResultadoHTML());
+            
+            // Agregar todos los componentes a la vista
+            contenedorExterno.add(panelPalabra);
+            contenedorExterno.add(panelTiempo);
+            contenedorExterno.add(panelHTML);           
+        }
+        
+        frameResultados.setVisible(true);
+    }
+    /*
     protected void showMessage( String mensaje ) {
         JOptionPane.showMessageDialog(
             null, "" + mensaje, "Información", 
             JOptionPane.INFORMATION_MESSAGE);
-    }
+    }*/
 }
