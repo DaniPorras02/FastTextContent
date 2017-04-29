@@ -22,8 +22,10 @@ public class FTC_GUI extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Fast Text Content - Daniela Porras");
+        setLocation(new java.awt.Point(200, 200));
 
-        textFieldBuscar.setText("dani yolo swag");
+        textFieldBuscar.setText("dani yolo swag yolo");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
