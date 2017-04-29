@@ -15,30 +15,26 @@ public class HTTPManager {
         
     }
     
-    public String getSearchResult(String palabra) {
+    public String getSearchResult(String palabra) throws Exception {
 
         String defaultUrl = "http://www.google.com/search?q=";
         
-        try {
-            URL urlBusqueda = new URL(defaultUrl + palabra);
-            HttpURLConnection conexionAbierta = (HttpURLConnection) urlBusqueda.openConnection();
+        URL urlBusqueda = new URL(defaultUrl + palabra);
+        HttpURLConnection conexionAbierta = (HttpURLConnection) urlBusqueda.openConnection();
 
-            conexionAbierta.setRequestProperty("User-Agent", agente);
+        conexionAbierta.setRequestProperty("User-Agent", agente);
 
-            int codigoRespuesta = conexionAbierta.getResponseCode();
+        int codigoRespuesta = conexionAbierta.getResponseCode();
 
-            BufferedReader reader = new BufferedReader( new InputStreamReader(conexionAbierta.getInputStream()));
+        BufferedReader reader = new BufferedReader( new InputStreamReader(conexionAbierta.getInputStream()));
 
-            respuesta = new StringBuffer();
+        respuesta = new StringBuffer();
 
-            String lineaObtenida;
-            while ((lineaObtenida = reader.readLine()) != null) {
-                respuesta.append(lineaObtenida);
-            }
-            reader.close();
-        } catch (Exception e) {
-            return "<html> Ocurrió un error en la carga del contenido. </html>";
+        String lineaObtenida;
+        while ((lineaObtenida = reader.readLine()) != null) {
+            respuesta.append(lineaObtenida);
         }
+        reader.close();
         
         return respuesta.toString();
         
