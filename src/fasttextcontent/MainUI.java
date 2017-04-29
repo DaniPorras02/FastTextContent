@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -18,19 +19,36 @@ import javax.swing.WindowConstants;
 public class MainUI implements Observer {
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg) {        
         
-        System.out.println("He sido notificado!: " + arg.getClass().getName());
-    
+        ContentGetter resultado = (ContentGetter) arg;
+        resultadosBusqueda.add(resultado);
+        
+        CacheSingleton cache = CacheSingleton.getInstance();
+        cache.toString();
+        
+        System.out.println(resultado.getPalabra());        
+        
+        if(listaPalabrasBusqueda.size() == resultadosBusqueda.size()){
+            // codigo de terminacion
+        }
     }
     
+    
+    private ArrayList<ContentGetter> resultadosBusqueda;
     private ArrayList<String> listaPalabrasBusqueda;
-    // private ArrayList<Thread> hilosBusqueda;
-            
+    
+    
     public void ejecutarBusqueda(FTC_GUI gui){
         
-        String stringBusqueda = gui.getStringBusqueda();
+        // Se reestablecen los valores de los atributos de la clase
         
+        limpiarAlmacenamientoLocal();
+        
+        // El codigo siguiente convierte la entrada del usuario a una lista de las palabras ingresadas
+        
+        String stringBusqueda = gui.getStringBusqueda();
+
         if (!stringBusqueda.equalsIgnoreCase("")){ 
             listaPalabrasBusqueda = new ArrayList<>(Arrays.asList(stringBusqueda.split(" ")));
         }
@@ -38,8 +56,11 @@ public class MainUI implements Observer {
             listaPalabrasBusqueda = new ArrayList<>();
         }
         
-        listaPalabrasBusqueda.forEach( (palabra) -> iniciarBusqueda(palabra) );
+        // Termina la conversion
         
+        // Se ejecuta el proceso de obtener el html
+        
+        listaPalabrasBusqueda.forEach( (palabra) -> iniciarProcesoBusqueda(palabra) );
         
 
         /*
@@ -80,11 +101,32 @@ public class MainUI implements Observer {
         */
     }
 
-    private void iniciarBusqueda(String palabra) {
+    private void iniciarProcesoBusqueda(String palabra) {
         
-        ContentGetter getterThread = new ContentGetter(palabra, this);
-        Thread hiloBusqueda = new Thread(getterThread);
-        hiloBusqueda.start();
-        // hilosBusqueda.add(hiloBusqueda);
+        CacheSingleton cache = CacheSingleton.getInstance();
+        
+        if (cache.contiene(palabra)){
+            
+            update(null, new ContentGetter( palabra + "2", cache.obtenerValor(palabra) ));
+            
+        } else {
+            ContentGetter getterThread = new ContentGetter(palabra, this);
+            getterThread.addObserver(cache);
+            Thread hiloBusqueda = new Thread(getterThread);
+            hiloBusqueda.start();
+        }
+    }
+
+    private void limpiarAlmacenamientoLocal() {
+        
+        this.listaPalabrasBusqueda = new ArrayList<>();
+        this.resultadosBusqueda = new ArrayList<>();
+        
+    }
+    
+    protected void showMessage( String mensaje ) {
+        JOptionPane.showMessageDialog(
+            null, "" + mensaje, "Información", 
+            JOptionPane.INFORMATION_MESSAGE);
     }
 }
