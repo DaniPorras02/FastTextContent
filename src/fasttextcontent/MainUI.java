@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
-import javax.swing.text.html.StyleSheet;
 
 
 public class MainUI implements Observer {
@@ -21,11 +20,12 @@ public class MainUI implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("He sido notificado!: " + arg.getClass().getName());
     
     }
     
-    public ArrayList<String> listaPalabrasBusqueda;
+    private ArrayList<String> listaPalabrasBusqueda;
+    // private ArrayList<Thread> hilosBusqueda;
             
     public void ejecutarBusqueda(FTC_GUI gui){
         
@@ -38,15 +38,11 @@ public class MainUI implements Observer {
             listaPalabrasBusqueda = new ArrayList<>();
         }
         
+        listaPalabrasBusqueda.forEach( (palabra) -> iniciarBusqueda(palabra) );
         
-        HTTPManager httpm = new HTTPManager();
-        String htm;
-        try {
-            htm = httpm.getSearchResult("yolo");
-        } catch (Exception ex) {
-            htm = "meirda";
-        }
         
+
+        /*
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JScrollPane sp = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -81,6 +77,14 @@ public class MainUI implements Observer {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        */
+    }
+
+    private void iniciarBusqueda(String palabra) {
         
+        ContentGetter getterThread = new ContentGetter(palabra, this);
+        Thread hiloBusqueda = new Thread(getterThread);
+        hiloBusqueda.start();
+        // hilosBusqueda.add(hiloBusqueda);
     }
 }
