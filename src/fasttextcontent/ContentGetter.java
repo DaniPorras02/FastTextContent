@@ -8,7 +8,8 @@ public class ContentGetter extends Observable implements Runnable {
     
     private String resultadoHTML;
     private String palabra;
-
+    private String tiempoBusqueda = "tiempo random";
+    
     public ContentGetter(String palabraBuscada, Observer observer){
         this.resultadoHTML = "<html> Sin contenido. </html>";
         this.palabra = palabraBuscada;
@@ -51,5 +52,10 @@ public class ContentGetter extends Observable implements Runnable {
     public String getPalabra() {
         return palabra;
     }
+
+    public String getTiempoBusqueda() {
+        return tiempoBusqueda;
+    }
+    
     
 }
