@@ -61,38 +61,6 @@ public class MainUI implements Observer {
         // Se ejecuta el proceso de obtener el html        
         listaPalabrasBusqueda.forEach( (palabra) -> iniciarProcesoBusqueda(palabra) );
         
-
-        /*
-        
-        Browser browser = new Browser();
-        BrowserView view = new BrowserView(browser);
-        JPanel panel1 = new JPanel(new BorderLayout());
-        panel1.add(view, BorderLayout.CENTER);
-        container.add(panel1);
-        browser.loadHTML(htm);
-        
-        Browser browser2 = new Browser();
-        BrowserView view2 = new BrowserView(browser2);
-        JPanel panel2 = new JPanel(new BorderLayout());
-        panel2.add(view2, BorderLayout.CENTER);
-        container.add(panel2);
-        browser2.loadURL("https://google.com");
-        
-        Browser browser3 = new Browser();
-        BrowserView view3 = new BrowserView(browser3);
-        JPanel panel3 = new JPanel(new BorderLayout());
-        panel3.add(view3, BorderLayout.CENTER);
-        container.add(panel3);
-        browser3.loadURL("https://google.com");
-        
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(container, BoxLayout.X_AXIS);
-        frame.setSize(700, 500);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        */
     }
 
     private void iniciarProcesoBusqueda(String palabra) {
@@ -125,7 +93,6 @@ public class MainUI implements Observer {
         frameResultados.setLayout(new BorderLayout());
         frameResultados.setSize(700, 700);    
         frameResultados.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frameResultados.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frameResultados.setLocationRelativeTo(null);
         
         JPanel contenedorExterno = new JPanel();
@@ -157,10 +124,5 @@ public class MainUI implements Observer {
         
         frameResultados.setVisible(true);
     }
-    /*
-    protected void showMessage( String mensaje ) {
-        JOptionPane.showMessageDialog(
-            null, "" + mensaje, "Información", 
-            JOptionPane.INFORMATION_MESSAGE);
-    }*/
+
 }
