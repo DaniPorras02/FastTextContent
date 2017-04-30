@@ -1,0 +1,12 @@
+Daniela Porras
+Tarea Corta II
+
+Aspectos de ejecucion
+
+	- Inicio del programa: Abrir el archivo "FastTextContent.jar" dentro de la carpeta "Ejecutable".
+	- Prueba del singleton de cache: 
+		1. Ingresar palabras y presionar boton "Buscar"
+		2. Aparecen los resultados (en el tiempo de respuesta no se menciona la cache y ronda los 1000 ms.)
+		3. Cerrar la ventana de resultados.
+		4. Ingresar palabras ingresadas anteriormente y presionar boton "Buscar".
+		5. Aparecen los resultados (en el tiempo de respuesta se menciona la cache y ronda los 0.0004 ms)
