@@ -31,7 +31,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="textFieldBuscar" min="-2" pref="220" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnBuscar" max="32767" attributes="0"/>
+              <Component id="btnBuscar" pref="142" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -52,7 +52,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="textFieldBuscar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="dani yolo swag yolo"/>
+        <Property name="text" type="java.lang.String" value="palabras prueba"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">

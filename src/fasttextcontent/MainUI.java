@@ -33,10 +33,8 @@ public class MainUI implements Observer {
         }
     }
     
-    
     private ArrayList<ContentGetter> resultadosBusqueda;
     private Set<String> listaPalabrasBusqueda;
-    
     
     public void ejecutarBusqueda(FTC_GUI gui){
         
@@ -54,11 +52,10 @@ public class MainUI implements Observer {
         }
         else {
             listaPalabrasBusqueda = new HashSet<>();
-        }
-        
+        }        
         // Termina la conversion
         
-        // Se ejecuta el proceso de obtener el html        
+        // Se ejecuta el proceso de obtener el html para cada palabra     
         listaPalabrasBusqueda.forEach( (palabra) -> iniciarProcesoBusqueda(palabra) );
         
     }
@@ -77,6 +74,7 @@ public class MainUI implements Observer {
             update(null, new ContentGetter( palabra, resultadoCache, tiempo));
             
         } else {
+            
             ContentGetter getterThread = new ContentGetter(palabra, this);
             getterThread.addObserver(cache);
             Thread hiloBusqueda = new Thread(getterThread);
@@ -100,6 +98,7 @@ public class MainUI implements Observer {
         frameResultados.setLocationRelativeTo(null);
         frameResultados.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         
+        // estructura necesaria para el acomodo de los componentes
         JPanel contenedorInterno = new JPanel();
         contenedorInterno.setLayout(new BoxLayout(contenedorInterno, BoxLayout.Y_AXIS));
         
@@ -132,6 +131,7 @@ public class MainUI implements Observer {
             contenedorInterno.add(panelTiempo);
             contenedorInterno.add(panelHTML);
         }
+        // Reajuste del frame y despliegue
         frameResultados.pack();
         frameResultados.setVisible(true);
 

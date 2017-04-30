@@ -25,7 +25,7 @@ public class FTC_GUI extends javax.swing.JFrame {
         setTitle("Fast Text Content - Daniela Porras");
         setLocation(new java.awt.Point(200, 200));
 
-        textFieldBuscar.setText("dani yolo swag yolo");
+        textFieldBuscar.setText("palabras prueba");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -42,7 +42,7 @@ public class FTC_GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(textFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
